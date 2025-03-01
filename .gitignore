@@ -1,4 +1,5 @@
 *.pyc
 *.pth
 *.pkl
+*.bag
 .DS_Store

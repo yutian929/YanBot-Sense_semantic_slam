@@ -172,7 +172,7 @@ class SemanticCloud:
         confidence, label = class_probs.max(1)
         confidence, label = confidence.squeeze(0).numpy(), label.squeeze(0).numpy()
         label = resize(label, (self.img_height, self.img_width), order = 0, mode = 'reflect', anti_aliasing=False, preserve_range = True) # order = 0, nearest neighbour
-        label = label.astype(np.int)
+        label = label.astype(np.int32)
         # Add semantic class colors
         decoded = decode_segmap(label, self.n_classes, self.cmap)        # Show input image and decoded image
         confidence = resize(confidence, (self.img_height, self.img_width),  mode = 'reflect', anti_aliasing=True, preserve_range = True)
@@ -232,7 +232,7 @@ class SemanticCloud:
         pred_confidence = pred_confidence.squeeze(0).cpu().numpy()
         pred_label = pred_label.squeeze(0).cpu().numpy()
         pred_label = resize(pred_label, (self.img_height, self.img_width), order = 0, mode = 'reflect', anti_aliasing=False, preserve_range = True) # order = 0, nearest neighbour
-        pred_label = pred_label.astype(np.int)
+        pred_label = pred_label.astype(np.int32)
         # Add semantic color
         semantic_color = decode_segmap(pred_label, self.n_classes, self.cmap)
         pred_confidence = resize(pred_confidence, (self.img_height, self.img_width),  mode = 'reflect', anti_aliasing=True, preserve_range = True)
@@ -251,7 +251,7 @@ class SemanticCloud:
         # Resize predicted labels and confidences to original image size
         for i in range(pred_labels.shape[0]):
             pred_labels_resized = resize(pred_labels[i], (self.img_height, self.img_width), order = 0, mode = 'reflect', anti_aliasing=False, preserve_range = True) # order = 0, nearest neighbour
-            pred_labels_resized = pred_labels_resized.astype(np.int)
+            pred_labels_resized = pred_labels_resized.astype(np.int32)
             # Add semantic class colors
             self.semantic_colors[i] = decode_segmap(pred_labels_resized, self.n_classes, self.cmap)
         for i in range(pred_confidences.shape[0]):
